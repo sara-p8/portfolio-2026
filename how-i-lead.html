@@ -153,7 +153,7 @@
     </svg>
     <p class="gate-label">Password required</p>
     <div class="gate-input-row">
-      <input class="gate-input" id="pwd" type="password" placeholder="····" maxlength="20" autocomplete="off" autofocus />
+      <input class="gate-input" id="pwd" type="password" inputmode="numeric" placeholder="····" maxlength="4" autocomplete="off" autofocus />
       <button class="gate-unlock" id="unlockBtn">Enter</button>
     </div>
     <p class="gate-error" id="err"></p>
@@ -201,7 +201,7 @@
     const err   = document.getElementById("err");
 
     async function tryUnlock() {
-      if (input.value.length === 0) return;
+      if (input.value.length === 0) { err.textContent = "Please enter a password"; return; }
       err.textContent = "";
       input.disabled = true;
       document.getElementById("unlockBtn").disabled = true;
