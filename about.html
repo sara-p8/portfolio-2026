@@ -90,6 +90,55 @@
     .nav-links a:hover,
     .nav-links a.active { color: var(--ink); }
 
+    /* ─── Hamburger ───────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 101;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: rgba(247, 244, 239, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      z-index: 99;
+      flex-direction: column;
+      padding: 8px 24px 20px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.02em;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      transition: color 0.2s;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--ink); }
+
     /* ─── Container ───────────────────────── */
     .container {
       max-width: 720px;
@@ -478,6 +527,8 @@
       .nav-inner {
         padding: 0 24px;
       }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
     }
   </style>
 </head>
@@ -492,10 +543,21 @@
       <ul class="nav-links">
         <li><a href="index.html">Work</a></li>
         <li><a href="about.html" class="active">About</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="https://sarapapa.joinperch.com/ama" target="_blank" rel="noopener">AMA</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
+      <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://sarapapa.joinperch.com/ama" target="_blank" rel="noopener">AMA</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <!-- About -->
   <section id="about">
@@ -688,6 +750,18 @@
       const diff = touchStartX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
     }, { passive: true });
+
+    // Hamburger
+    const toggle = document.getElementById('navToggle');
+    const mobile = document.getElementById('navMobile');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      mobile.classList.toggle('open');
+    });
+    mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      mobile.classList.remove('open');
+    }));
   </script>
 </body>
 </html>
