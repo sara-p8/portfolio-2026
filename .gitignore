@@ -1,0 +1,7 @@
+# Design system — contains sensitive info (case study password)
+design-system.md
+
+# macOS
+.DS_Store
+._.DS_Store
+._*

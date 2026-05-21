@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garage Sale · Sara Papa</title>
+  <link rel="icon" type="image/svg+xml" href="images/sp-logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #F7F4EF;
+      --surface: #F0EDE7;
+      --ink:     #1C1A18;
+      --ink-2:   #706A64;
+      --ink-3:   #6A6460;
+      --accent:  #8C5E4A;
+      --pink:    #F7BDD1;
+      --line:    #E4DED7;
+      --nav-h:   56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      font-weight: 400;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── Nav ─────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(247, 244, 239, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .nav-logo {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ─── Hamburger ───────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: rgba(247, 244, 239, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      z-index: 99;
+      flex-direction: column;
+      padding: 8px 24px 20px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 0.88rem;
+      color: var(--ink-3);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      transition: color 0.2s;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--ink); }
+
+    /* ─── Container ───────────────────────── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Header ──────────────────────────── */
+    .case-header {
+      padding-top: calc(var(--nav-h) + 80px);
+      padding-bottom: 0;
+    }
+
+    .case-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .case-label svg {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      transform: translateY(8px);
+    }
+
+    .case-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .case-subtitle {
+      font-size: 0.93rem;
+      color: var(--ink-2);
+      line-height: 1.85;
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+
+    .case-live-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s;
+    }
+    .case-live-link svg {
+      display: block;
+      flex-shrink: 0;
+    }
+    .case-live-link span {
+      position: relative;
+      top: 2px;
+    }
+    .case-live-link:hover { opacity: 0.6; }
+
+    @keyframes cursor-rays-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+    .cursor-rays {
+      animation: cursor-rays-pulse 2s ease-in-out infinite;
+    }
+
+    .case-header-meta {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    /* ─── Sections ────────────────────────── */
+    .case-body {
+      padding: 40px 0 96px;
+    }
+
+    .case-body .container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .case-section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 8px;
+    }
+
+    .case-text {
+      font-size: 0.93rem;
+      line-height: 1.85;
+      color: var(--ink-2);
+    }
+
+    /* ─── Meta row ────────────────────────── */
+    .case-meta {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .case-meta-item {}
+
+    .case-meta-value {
+      font-size: 0.93rem;
+      color: var(--ink-2);
+      line-height: 1.6;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 0;
+    }
+
+    .tag-list a {
+      display: flex;
+      align-items: center;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+
+    .tag-list a:hover { opacity: 1; }
+
+    .tag-list svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    /* ─── Screenshots ────────────────────── */
+    .screenshot-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 4px 24px rgba(28, 26, 24, 0.08);
+    }
+
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--ink-3);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ─── Back link ───────────────────────── */
+    .back-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--ink-3);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--ink); }
+
+    /* ─── Footer ──────────────────────────── */
+    footer {
+      padding: 20px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--ink-3);
+    }
+
+    .footer-linkedin {
+      display: flex;
+      align-items: center;
+      color: var(--ink-3);
+      transition: color 0.2s;
+    }
+    .footer-linkedin:hover { color: var(--accent); }
+    .footer-linkedin svg { width: 16px; height: 16px; }
+
+    /* ─── Fade ────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.22s; }
+    .d4 { transition-delay: 0.28s; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .case-meta { gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="images/sp-logo.svg" alt="Sara Papa logo" />
+        Sara Papa
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://sarapapa.joinperch.com/ama" target="_blank" rel="noopener">AMA</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html#home">Home</a>
+    <a href="about.html">About</a>
+    <a href="https://sarapapa.joinperch.com/ama" target="_blank" rel="noopener">AMA</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="case-header">
+    <div class="container">
+
+      <h1 class="case-title fade-up d1">Garage Sale</h1>
+      <p class="case-subtitle fade-up d2">Built because posting to Marketplace, OfferUp, and Facebook groups was never actually going to happen.</p>
+      <a href="https://garagesale.sarapapa.design" target="_blank" rel="noopener" class="case-live-link fade-up d3"><svg fill="none" height="26" viewBox="0 0 24 24" width="26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g clip-rule="evenodd" fill="#8C5E4A" fill-rule="evenodd"><path d="m11.2731 8.34748c-2.28593-.55375-3.79525.54676-2.94064 3.00362.54676 1.5493 4.06214 11.4989 5.98634 12.4645.4331.1871.9142.2333 1.375.1319.4609-.1013.8782-.3451 1.1928-.6967.5842-1.1571 1.0169-2.3847 1.2875-3.6524.4468-1.9241-.2059-1.2564 2.2669-2.149 1.4594-.5268 3.1326-1.0735 3.4315-2.5958.0797-.3567.0356-.7298-.1252-1.058-.1608-.3281-.4287-.5917-.7594-.7472-3.7067-2.0216-7.6388-3.59947-11.7148-4.70092zm11.303 5.41762c.9826.5917.2429 1.7592-.9596 2.191-5.0597 1.8082-3.8253.4838-4.5669 3.3655-.2661 1.0815-.6398 2.1336-1.1155 3.1406-.1453.1473-.3339.2442-.5382.2766s-.4137-.0015-.5973-.0967c-1.1955-.8236-4.637-9.9236-5.27767-11.7138-.42781-1.18444-.2219-1.78617 1.47237-1.40134 4.0128.96044 7.8997 2.38604 11.5818 4.24814v-.008z"/></g><g class="cursor-rays" clip-rule="evenodd" fill="#8C5E4A" fill-rule="evenodd"><path d="m.368039 6.55825c1.433421.9055 3.032831 1.51645 4.704891 1.7972.10498.03499.21956.02685.31854-.02264.09897-.04949.17424-.13627.20923-.24124.03499-.10498.02685-.21956-.02264-.31854-.04949-.09897-.13627-.17423-.24124-.20923-.86762-.49977-1.77721-.92259-2.71879-1.26443-3.041636-1.1195-2.6698028.11595-2.249991.25888z"/><path d="m6.95207.443063c-.37284 6.693007 1.3394 5.847387 1.3404 5.157697.0755-1.76253-.11215-3.52647-.55675-5.233663-.00358-.052548-.01766-.103846-.04141-.150857-.02375-.04701-.05668-.08878-.09686-.122836-.04018-.0340562-.08678-.0597072-.13705-.0754351-.05026-.01572798-.10317-.0212133-.1556-.01613141-.05242.0050819-.10329.02062771-.1496.04571761s-.08712.0592139-.12001.1003529-.05719.088458-.07147.139155c-.01427.050697-.01824.103744-.01165.156z"/><path d="m13.4981.380073c-.9338 1.587527-1.543 3.344767-1.7921 5.169687-.0174.05198-.0243.10686-.0204.16152.0039.05465.0185.10801.043.15701.0245.04901.0584.09271.0998.12861s.0895.0633.1414.08062c.052.01733.1069.02425.1616.02036.0546-.00388.108-.01849.157-.04299.049-.02451.0927-.05842.1286-.09982.0359-.04139.0633-.08945.0806-.14143.8688-1.60793 1.4585-3.35155 1.7442-5.156691.0218-.049501.0333-.102937.0337-.157027.0004-.054089-.0103-.107689-.0314-.157508-.021-.049818-.0521-.094804-.0911-.132193-.0391-.037388-.0854-.066391-.1362-.085227-.0507-.018835-.1047-.0271051-.1587-.024302-.054.002803-.1069.01662-.1554.040602s-.0915.057623-.1265.098857-.0613.089189-.0771.140921z"/><path d="m14.6826 8.17057c1.7377-.5575 3.3561-1.43447 4.7719-2.58584.0491-.02363.0931-.05669.1294-.09731s.0642-.08799.0822-.13941c.0181-.05142.0258-.10588.0227-.16028-.003-.0544-.0168-.10766-.0404-.15675-.0236-.0491-.0567-.09305-.0973-.12937-.0406-.03631-.088-.06427-.1394-.08228-.0514-.018-.1059-.0257-.1603-.02266s-.1076.01677-.1567.04039c-1.7057.6136-3.3019 1.49676-4.7279 2.61583-.0856.04779-.1502.12576-.1814.21867-.0311.09292-.0265.19411.013.2838.0394.08969.1109.16144.2005.20124.0895.0398.1907.04478.2837.01397z"/><path d="m.69789 14.5737c1.79057-.7442 3.48692-1.6973 5.05374-2.8397.56275-.2639.6737-2.48091-5.447563 2.156-.08624.0544-.148087.1401-.172592.2391-.024504.0989-.009766.2036.041129.2919.050896.0884.134001.1536.231914.1821.097914.0284.203042.0179.293372-.0294z"/><path d="m5.99953 20.3591c.90909-1.6903 1.57216-3.5018 1.96912-5.3796.35085-.8466-1.30141-1.7762-2.71078 5.1147-.03323.0979-.02664.2049.01835.298.04499.093.12477.1647.22212.1995.09734.0347.20446.0298.29823-.0137.09376-.0435.16666-.1221.20296-.2189z"/></g></svg><span>See it live</span></a>
+
+      <div class="case-header-meta fade-up d4">
+        <div>
+          <p class="case-section-label">Time to build</p>
+          <p class="case-meta-value">~2–3 hrs</p>
+        </div>
+        <div>
+        <p class="case-section-label">Tools used</p>
+        <div class="tag-list">
+          <a href="https://claude.ai" target="_blank" rel="noopener" title="Claude">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" fill="#D97757" fill-rule="nonzero"/></svg>
+          </a>
+          <a href="https://chatgpt.com" target="_blank" rel="noopener" title="ChatGPT">
+            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="m297.06 130.97c7.26-21.79 4.76-45.66-6.85-65.48-17.46-30.4-52.56-46.04-86.84-38.68-15.25-17.18-37.16-26.95-60.13-26.81-35.04-.08-66.13 22.48-76.91 55.82-22.51 4.61-41.94 18.7-53.31 38.67-17.59 30.32-13.58 68.54 9.92 94.54-7.26 21.79-4.76 45.66 6.85 65.48 17.46 30.4 52.56 46.04 86.84 38.68 15.24 17.18 37.16 26.95 60.13 26.8 35.06.09 66.16-22.49 76.94-55.86 22.51-4.61 41.94-18.7 53.31-38.67 17.57-30.32 13.55-68.51-9.94-94.51zm-120.28 168.11c-14.03.02-27.62-4.89-38.39-13.88.49-.26 1.34-.73 1.89-1.07l63.72-36.8c3.26-1.85 5.26-5.32 5.24-9.07v-89.83l26.93 15.55c.29.14.48.42.52.74v74.39c-.04 33.08-26.83 59.9-59.91 59.97zm-128.84-55.03c-7.03-12.14-9.56-26.37-7.15-40.18.47.28 1.3.79 1.89 1.13l63.72 36.8c3.23 1.89 7.23 1.89 10.47 0l77.79-44.92v31.1c.02.32-.13.63-.38.83l-64.41 37.19c-28.69 16.52-65.33 6.7-81.92-21.95zm-16.77-139.09c7-12.16 18.05-21.46 31.21-26.29 0 .55-.03 1.52-.03 2.2v73.61c-.02 3.74 1.98 7.21 5.23 9.06l77.79 44.91-26.93 15.55c-.27.18-.61.21-.91.08l-64.42-37.22c-28.63-16.58-38.45-53.21-21.95-81.89zm221.26 51.49-77.79-44.92 26.93-15.54c.27-.18.61-.21.91-.08l64.42 37.19c28.68 16.57 38.51 53.26 21.94 81.94-7.01 12.14-18.05 21.44-31.2 26.28v-75.81c.03-3.74-1.96-7.2-5.2-9.06zm26.8-40.34c-.47-.29-1.3-.79-1.89-1.13l-63.72-36.8c-3.23-1.89-7.23-1.89-10.47 0l-77.79 44.92v-31.1c-.02-.32.13-.63.38-.83l64.41-37.16c28.69-16.55 65.37-6.7 81.91 22 6.99 12.12 9.52 26.31 7.15 40.1zm-168.51 55.43-26.94-15.55c-.29-.14-.48-.42-.52-.74v-74.39c.02-33.12 26.89-59.96 60.01-59.94 14.01 0 27.57 4.92 38.34 13.88-.49.26-1.33.73-1.89 1.07l-63.72 36.8c-3.26 1.85-5.26 5.31-5.24 9.06l-.04 89.79zm14.63-31.54 34.65-20.01 34.65 20v40.01l-34.65 20-34.65-20z"/></svg>
+          </a>
+          <a href="https://supabase.com" target="_blank" rel="noopener" title="Supabase">
+            <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true"><path fill="url(#sb-a)" d="M55.7223 93.4383c-2.4014 3.0241-7.2705 1.3672-7.3284-2.4942l-.846-56.4773h37.9752c6.8784 0 10.7146 7.9445 6.4375 13.3315l-36.2383 45.64Z"/><path fill="url(#sb-b)" fill-opacity=".2" d="M55.7223 93.4383c-2.4014 3.0241-7.2705 1.3672-7.3284-2.4942l-.846-56.4773h37.9752c6.8784 0 10.7146 7.9445 6.4375 13.3315l-36.2383 45.64Z"/><path fill="#3ecf8e" d="M40.278 2.56189c2.4014-3.024436 7.2705-1.36726 7.3284 2.49417l.3707 56.47724h-37.5c-6.87853 0-10.714819-7.9446-6.43753-13.3315L40.278 2.56189Z"/><defs><linearGradient id="sb-a" x1="1011.58" x2="3189.12" y1="1286.71" y2="2199.97" gradientUnits="userSpaceOnUse"><stop stop-color="#249361"/><stop offset="1" stop-color="#3ecf8e"/></linearGradient><linearGradient id="sb-b" x1="139.561" x2="1537.44" y1="-762.054" y2="1869.38" gradientUnits="userSpaceOnUse"><stop/><stop offset="1" stop-opacity="0"/></linearGradient></defs></svg>
+          </a>
+          <a href="https://vercel.com/" target="_blank" rel="noopener" title="Vercel">
+            <svg viewBox="0 -17 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon fill="#000000" points="128 0 256 221.705007 0 221.705007"/></svg>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="#1B1F23"/></svg>
+          </a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-body">
+    <div class="container">
+
+      <div class="fade-up">
+        <p class="case-section-label">The problem</p>
+        <p class="case-text">After having a baby, things accumulated faster than I expected: gadgets we tried and quickly outgrew, a mountain of clothes worn only a handful of times, gifts we appreciated but still had so much life in them. I kept telling myself I would either sell or gift it all. The problem was never the stuff itself. It was everything that had to happen after taking a single photo: writing a description for each item, duplicating it across three different platforms, monitoring separate inboxes, negotiating prices, and figuring out shipping on top of all of it. By the time I finished step one, the nap was over and the moment was gone. Nothing ever actually got listed.</p>
+      </div>
+
+      <div class="fade-up">
+        <p class="case-section-label">What I built</p>
+        <p class="case-text">I needed something built around the time I actually have, which is about five minutes, on my phone, while doing three other things. The admin side lets me upload a photo, write a short description, set a price or mark it as free, and move on without any of the overhead that made listing things feel impossible before. No listing fees, no shipping logistics, no strangers sliding into separate inboxes across three platforms. On the buyer side, there is a clean, scrollable page I share with neighbors, friends, and family. People can reserve items directly, and when they do, I get a notification and see everything in one place. If something is listed at a price, buyers can also put in an offer, which turned out to be one of my favorite touches. A little bit of back and forth, but all contained. Because everything is fully responsive, I can open the admin side from my phone, snap a photo on the spot, and have something listed before the moment passes.</p>
+      </div>
+
+      <div class="fade-up">
+        <p class="case-section-label">Buyer experience</p>
+        <div class="screenshot-stack">
+          <div class="screenshot-item">
+            <img src="images/gs-browse.png" alt="Browse listings with search and filters" />
+            <p class="screenshot-caption">Browse and filter items by category or condition</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="images/gs-item.png" alt="Item detail with photo carousel, price, and condition badge" />
+            <p class="screenshot-caption">Item detail with photo carousel and reserve button</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="images/gs-reserve.png" alt="Reserve form with name and phone fields" />
+            <p class="screenshot-caption">Reserve an item with just a name and phone number</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="images/gs-offer.png" alt="Make an offer — enter a price below the listing" />
+            <p class="screenshot-caption">Buyers can make an offer if they want to negotiate</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="images/gs-offer-low.png" alt="Offer floor validation — offers too far below listed price aren't accepted" />
+            <p class="screenshot-caption">Offers more than 20% below the listing price aren't accepted</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="images/gs-confirm.png" alt="Confirmation screen with pickup next steps" />
+            <p class="screenshot-caption">Confirmation with next steps — I follow up by text to coordinate pickup</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <p class="case-section-label">What happened next</p>
+        <p class="case-text">It started as a personal tool and quietly became a community one. Friends started asking if they could post their own items too, which is honestly the best possible outcome for something I built in a weekend. That is the next thing I am working on: account management so multiple people can list, each with their own inventory, all under the same roof.</p>
+      </div>
+
+      <div class="fade-up">
+        <p class="case-section-label">Admin side</p>
+        <div class="screenshot-stack">
+          <div class="screenshot-item">
+            <img src="images/gs-admin-listings.png" alt="Admin listings view with status badges and search" />
+            <p class="screenshot-caption">Listings at a glance — availability status, price, and condition in one view</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="images/gs-admin-reservations.png" alt="Reservations view showing offer prices and confirm or re-list actions" />
+            <p class="screenshot-caption">Reservations surface offer prices, timestamps, and one-tap confirm or re-list</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="images/gs-admin-new.png" alt="New listing form with photo upload, condition selector, and price" />
+            <p class="screenshot-caption">New listing: drop a photo, pick a condition, set a price — done in under a minute</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-link fade-up">← Back home</a>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <p>© 2026 Sara Papa</p>
+        <a href="https://linkedin.com/in/p-sara" target="_blank" rel="noopener" class="footer-linkedin" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.06 }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    const toggle = document.getElementById('navToggle');
+    const mobile = document.getElementById('navMobile');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      mobile.classList.toggle('open');
+    });
+    mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      mobile.classList.remove('open');
+    }));
+  </script>
+
+</body>
+</html>
