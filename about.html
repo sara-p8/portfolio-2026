@@ -170,12 +170,13 @@
         display: grid;
         grid-template-columns: 180px 1fr;
         column-gap: 52px;
+        row-gap: 0;
         align-items: start;
       }
 
       .about-photo-col { grid-column: 1; grid-row: 1 / 3; order: unset; }
       .about-header    { grid-column: 2; grid-row: 1; order: unset; }
-      .about-body      { grid-column: 2; grid-row: 2; padding-top: 20px; order: unset; }
+      .about-body      { grid-column: 2; grid-row: 2; padding-top: 4px; order: unset; }
     }
 
     .photo-frame {
@@ -266,7 +267,7 @@
       font-weight: 500;
       color: var(--ink);
       letter-spacing: -0.01em;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .about-role {
@@ -342,7 +343,7 @@
 
     /* ─── Outside of work ─────────────────── */
     .outside-wrap {
-      padding: 40px 0 56px;
+      padding: 40px 0 0;
     }
 
     .outside-eyebrow {
@@ -405,7 +406,7 @@
 
     /* ─── My Why ──────────────────────────── */
     #why {
-      padding: 72px 0;
+      padding: 56px 0 48px;
     }
 
     .why-eyebrow {
@@ -422,7 +423,7 @@
       font-weight: 500;
       color: var(--ink);
       letter-spacing: -0.01em;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .why-body p {
@@ -441,7 +442,7 @@
 
     /* ─── Testimonials ────────────────────── */
     #testimonials {
-      padding: 72px 0 96px;
+      padding: 48px 0 72px;
     }
 
     .testimonials-eyebrow {
@@ -458,11 +459,11 @@
       font-weight: 500;
       color: var(--ink);
       letter-spacing: -0.01em;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .testimonial-item {
-      padding: 24px 0;
+      padding: 16px 0;
       border-bottom: 1px solid var(--line);
     }
 
