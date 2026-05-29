@@ -188,12 +188,53 @@
     }
 
     .project-item {
-      padding: 32px 0;
-      border-bottom: 1px solid var(--line);
+      display: block;
+      padding: 24px 20px;
+      margin: 0 -20px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      background: transparent;
+      transition: background 0.3s ease;
     }
 
-    .project-item:first-child {
-      border-top: 1px solid var(--line);
+    .project-item:hover {
+      background: var(--surface);
+    }
+
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: var(--surface);
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .project-item:hover .project-thumb img {
+      transform: scale(1.03);
+    }
+
+
+    .project-thumb-placeholder {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--line) 100%);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
     }
 
     .project-row {
@@ -390,46 +431,50 @@
         <svg viewBox="0 0 1200 1200" fill="#F7BDD1" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="m845.212 530.339c17.457 43.558 27.031 89.325 28.245 136.36.777 30.416-.418 60.891-.717 91.325-.059 5.155-.696 10.431.1 15.466 1.871 11.964 10.928 19.389 22.941 19.707 11.714.318 20.682-7.086 23.061-19.328.736-3.802.925-7.723 1.024-11.604.667-23.966 1.403-47.912 1.771-71.878.926-58.999-9.256-116.316-29.788-171.374-18.551-49.763-46.08-94.366-86.588-129.658-51.713-45.06-111.189-69.27-180.759-69.514-61.527-.239-117.799 14.854-169.214 48.464-3.195 2.08-6.648 3.737-10.012 5.599-10.431-4.877-20.244-9.813-30.306-14.128-46.19-19.766-95.137-24.578-144.582-25.205-48.728-.632-96.858 6.33-144.92 13.561-3.812.583-7.743 1.219-11.276 2.672-10.042 4.175-15.506 14.461-13.924 25.26 1.423 9.629 9.306 17.79 19.397 19 5.046.612 10.321.084 15.407-.542 19.935-2.443 39.82-5.17 59.726-7.728 52.4-6.723 104.651-6.684 156.743 3.07 17.915 3.354 34.954 9.062 53.844 18.069-6.17 7.28-10.56 12.769-15.248 17.984-28.853 32.102-46.299 70.021-56.61 111.504-7.484 30.017-5.474 59.313 9.286 86.881 14.292 26.712 37.412 41.224 67.329 42.696 24.543 1.215 47.852-5.673 67.419-20.881 46.479-36.143 68.494-83.377 61.606-142.695-3.623-31.231-17.118-58.138-37.471-81.825-4.509-5.235-8.928-10.55-13.098-15.511 1.563-2.175 2.08-3.533 3.055-4.165 3.265-2.13 6.608-4.125 10.032-5.942 35.61-18.786 73.45-27.808 113.808-28.723 51.086-1.154 97.088 12.471 138.739 41.98 43.327 30.699 71.632 72.878 90.98 121.103zm-361.369 34.953c-7.813 16.591-18.462 30.998-33.471 41.885-9.654 7.012-20.363 11.133-32.227 11.969-16.88 1.174-28.444-5.932-35.282-21.394-6.499-14.7-7.604-29.982-4.1-45.488 9.803-43.284 30.276-80.706 62.492-111.464 1.771-1.722 4.021-2.966 5.892-4.314 41.583 27.992 57.557 84.508 36.696 128.806z"/><path d="m1096.137 728.365c-6.3-9.454-18.482-13.117-29.141-8.3-4.678 2.13-8.958 5.195-13.237 8.081-30.077 20.304-59.896 40.965-90.23 60.871-17.854 11.703-36.387 22.412-54.819 33.201-5.543 3.265-11.564 6.15-17.734 7.764-25.867 6.768-30.485 1.572-37.9-17.477-6.31-16.224-11.645-33.004-15.516-50.002-6.609-29.002-11.725-58.363-17.507-87.584-1.135-5.713-1.98-11.545-3.792-17.038-4.09-12.401-15.107-18.751-27.3-16.303-10.948 2.19-18.362 11.823-18.333 24.165.02 3.225.458 6.469 1.096 9.635 6.768 34.296 12.938 68.732 20.711 102.81 4.15 18.233 10.56 36.009 16.979 53.604 4.688 12.859 12.432 24.065 22.384 33.76 8.759 8.559 18.571 13.934 31.45 13.715 21.537 2.906 42.348-1.334 61.527-11.863 20.422-11.207 40.666-22.871 60.184-35.571 32.574-21.198 64.502-43.394 96.679-65.21 3.732-2.547 7.594-5.035 10.868-8.121 8.488-8.041 9.861-20.801 3.631-30.137z"/></g></svg>
       </div>
 
-      <div class="project-item fade-up d1">
+      <a class="project-item fade-up d1" href="payroll-calendar.html">
+        <div class="project-thumb">
+          <img src="images/pc-thumb.png" alt="Payroll Calendar" style="object-position: center center;" />
+        </div>
         <div class="project-row">
           <span class="project-title">Payroll Calendar</span>
-          <span class="project-year">Restaurant365 · 2024</span>
         </div>
         <p class="project-desc">Redesigned pay period management into a centralized, editable calendar, described internally as "a huge leap in customer self-sufficiency."</p>
-        <a href="payroll-calendar.html" class="project-link">View case study</a>
-      </div>
+      </a>
 
-      <div class="project-item fade-up d2">
+      <a class="project-item fade-up d2" href="time-off-accrual.html">
+        <div class="project-thumb">
+          <img src="images/toa-thumb.png" alt="Time Off Accrual" style="object-position: center center;" />
+        </div>
         <div class="project-row">
           <span class="project-title">Time Off Accrual</span>
-          <span class="project-year">Restaurant365 · 2023</span>
         </div>
         <p class="project-desc">Replaced a rigid, single-policy iframe from a third-party tool with a flexible multi-bank accrual system, covering three user types across web and mobile.</p>
-        <a href="time-off-accrual.html" class="project-link">View case study</a>
-      </div>
+      </a>
 
-      <div class="project-item fade-up d3">
+      <a class="project-item fade-up d3" href="how-i-lead.html">
+        <div class="project-thumb">
+          <img src="images/leadership-thumb.png" alt="Design Leadership" style="object-position: center center;" />
+        </div>
         <div class="project-row">
           <span class="project-title">Design Leadership</span>
-          <span class="project-year">Restaurant365 · 2025</span>
         </div>
         <p class="project-desc">Built Roux (a custom GPT for the team), three Glean AI agents, and a Claude-based orchestrator, paired with scrum processes and a career framework already driving promotions.</p>
-        <a href="how-i-lead.html" class="project-link">Read more</a>
-      </div>
+      </a>
 
       <div class="section-label fade-up" style="margin-top: 48px;">
         Just for Fun
         <svg viewBox="0 0 1200 1200" fill="#F7BDD1" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="m845.212 530.339c17.457 43.558 27.031 89.325 28.245 136.36.777 30.416-.418 60.891-.717 91.325-.059 5.155-.696 10.431.1 15.466 1.871 11.964 10.928 19.389 22.941 19.707 11.714.318 20.682-7.086 23.061-19.328.736-3.802.925-7.723 1.024-11.604.667-23.966 1.403-47.912 1.771-71.878.926-58.999-9.256-116.316-29.788-171.374-18.551-49.763-46.08-94.366-86.588-129.658-51.713-45.06-111.189-69.27-180.759-69.514-61.527-.239-117.799 14.854-169.214 48.464-3.195 2.08-6.648 3.737-10.012 5.599-10.431-4.877-20.244-9.813-30.306-14.128-46.19-19.766-95.137-24.578-144.582-25.205-48.728-.632-96.858 6.33-144.92 13.561-3.812.583-7.743 1.219-11.276 2.672-10.042 4.175-15.506 14.461-13.924 25.26 1.423 9.629 9.306 17.79 19.397 19 5.046.612 10.321.084 15.407-.542 19.935-2.443 39.82-5.17 59.726-7.728 52.4-6.723 104.651-6.684 156.743 3.07 17.915 3.354 34.954 9.062 53.844 18.069-6.17 7.28-10.56 12.769-15.248 17.984-28.853 32.102-46.299 70.021-56.61 111.504-7.484 30.017-5.474 59.313 9.286 86.881 14.292 26.712 37.412 41.224 67.329 42.696 24.543 1.215 47.852-5.673 67.419-20.881 46.479-36.143 68.494-83.377 61.606-142.695-3.623-31.231-17.118-58.138-37.471-81.825-4.509-5.235-8.928-10.55-13.098-15.511 1.563-2.175 2.08-3.533 3.055-4.165 3.265-2.13 6.608-4.125 10.032-5.942 35.61-18.786 73.45-27.808 113.808-28.723 51.086-1.154 97.088 12.471 138.739 41.98 43.327 30.699 71.632 72.878 90.98 121.103zm-361.369 34.953c-7.813 16.591-18.462 30.998-33.471 41.885-9.654 7.012-20.363 11.133-32.227 11.969-16.88 1.174-28.444-5.932-35.282-21.394-6.499-14.7-7.604-29.982-4.1-45.488 9.803-43.284 30.276-80.706 62.492-111.464 1.771-1.722 4.021-2.966 5.892-4.314 41.583 27.992 57.557 84.508 36.696 128.806z"/><path d="m1096.137 728.365c-6.3-9.454-18.482-13.117-29.141-8.3-4.678 2.13-8.958 5.195-13.237 8.081-30.077 20.304-59.896 40.965-90.23 60.871-17.854 11.703-36.387 22.412-54.819 33.201-5.543 3.265-11.564 6.15-17.734 7.764-25.867 6.768-30.485 1.572-37.9-17.477-6.31-16.224-11.645-33.004-15.516-50.002-6.609-29.002-11.725-58.363-17.507-87.584-1.135-5.713-1.98-11.545-3.792-17.038-4.09-12.401-15.107-18.751-27.3-16.303-10.948 2.19-18.362 11.823-18.333 24.165.02 3.225.458 6.469 1.096 9.635 6.768 34.296 12.938 68.732 20.711 102.81 4.15 18.233 10.56 36.009 16.979 53.604 4.688 12.859 12.432 24.065 22.384 33.76 8.759 8.559 18.571 13.934 31.45 13.715 21.537 2.906 42.348-1.334 61.527-11.863 20.422-11.207 40.666-22.871 60.184-35.571 32.574-21.198 64.502-43.394 96.679-65.21 3.732-2.547 7.594-5.035 10.868-8.121 8.488-8.041 9.861-20.801 3.631-30.137z"/></g></svg>
       </div>
 
-      <div class="project-item fade-up">
+      <a class="project-item fade-up" href="garagesale.html">
+        <div class="project-thumb">
+          <img src="images/gs-thumb.png" alt="Garage Sale" style="object-position: center center;" />
+        </div>
         <div class="project-row">
           <span class="project-title">Garage Sale</span>
-          <span class="project-year">Personal · 2025</span>
         </div>
         <p class="project-desc">A personal online garage sale built to solve a very real new-parent problem. Snap a photo, fill in a few fields, share the link.</p>
-        <a href="garagesale.html" class="project-link">Read more</a>
-      </div>
+      </a>
 
     </div>
   </section>

@@ -464,11 +464,16 @@
 
     .testimonial-item {
       padding: 16px 0;
-      border-bottom: 1px solid var(--line);
     }
 
-    .testimonial-item:first-of-type {
-      border-top: 1px solid var(--line);
+    .testimonial-item + .testimonial-item::before {
+      content: '✦';
+      display: block;
+      text-align: center;
+      font-size: 0.5rem;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-bottom: 24px;
     }
 
     .testimonial-text {
